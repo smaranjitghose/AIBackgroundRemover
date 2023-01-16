@@ -1,5 +1,6 @@
 import streamlit as st
 from utils import hide_footer, lottie_local
+from PIL import Image
 
 def main():
     """
@@ -18,6 +19,12 @@ def main():
     
     st.title("AI Background Remover")
     hide_footer()
+
+    uploaded_img = st.file_uploader(label="Upload an image", type=["png","jpg","jpeg"],accept_multiple_files=False)
+
+    if uploaded_img:
+        st.markdown("### Input Image")
+        st.image(uploaded_img)
 
 
 
