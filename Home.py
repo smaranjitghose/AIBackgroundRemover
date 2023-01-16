@@ -1,6 +1,8 @@
 import streamlit as st
 from utils import hide_footer, lottie_local
 from PIL import Image
+from rembg import remove
+
 
 def main():
     """
@@ -22,9 +24,18 @@ def main():
 
     uploaded_img = st.file_uploader(label="Upload an image", type=["png","jpg","jpeg"],accept_multiple_files=False)
 
-    if uploaded_img:
-        st.markdown("### Input Image")
-        st.image(uploaded_img)
+    if st.button("Generate"):
+        # Load the input Image
+        img = Image.open(uploaded_img)
+        # Remove the Image Background
+        res_img = remove(img)
+        col1, col2 = st.columns([2,2],gap="large")
+        with col1:
+            st.markdown("### Input Image")
+            st.image(img)
+        with col2:
+            st.markdown("### After Background Removal")
+            st.image(res_img)
 
 
 
